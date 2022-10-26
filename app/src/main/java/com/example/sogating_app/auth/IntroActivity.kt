@@ -44,6 +44,8 @@ class IntroActivity : AppCompatActivity() {
     private lateinit var googleSignInClient: GoogleSignInClient
     val GOOGLE_REQUEST_CODE = 99
     private val TAG = "Google Login"
+    var SOCIAL = 0
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,6 +62,7 @@ class IntroActivity : AppCompatActivity() {
             .build()
         googleSignInClient = GoogleSignIn.getClient(this, gso)
         binding.googleLoginBtn.setOnClickListener {
+            SOCIAL = 1
             signIn()
         }
 
@@ -142,9 +145,16 @@ class IntroActivity : AppCompatActivity() {
     }
 
     private fun loginSuccess(){
+
         val intent = Intent(this, JoinActivity::class.java)
-        startActivity(intent)
-        finish()
+        val google_intent = Intent(this, JoinActivity_another_social::class.java)
+
+        if(SOCIAL ==0) {
+            startActivity(intent)
+        }else{
+            startActivity(google_intent)
+        }
+            finish()
     }
 
     //    private fun updateUI(user: FirebaseUser?) {
