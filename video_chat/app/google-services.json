@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "912531100534",
+    "firebase_url": "https://voicechat-2f5af-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "voicechat-2f5af",
+    "storage_bucket": "voicechat-2f5af.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:912531100534:android:e451537954dde8bcb9e057",
+        "android_client_info": {
+          "package_name": "com.example.video_chat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "912531100534-37bslt9vrvldp8octda7gh43pscpn1go.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB8EM6AhedOPbKM7yFM_-uPo4izGHaDsGE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "912531100534-37bslt9vrvldp8octda7gh43pscpn1go.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
