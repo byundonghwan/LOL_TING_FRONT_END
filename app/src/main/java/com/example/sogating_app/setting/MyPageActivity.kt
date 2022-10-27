@@ -3,18 +3,18 @@ package com.example.sogating_app.setting
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.MenuItem
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.widget.Toolbar
+import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.example.sogating_app.MAIN.MainActivity
+import com.example.sogating_app.Message.img.ImgApi
+import com.example.sogating_app.Message.img.ResponseData
 import com.example.sogating_app.R
 import com.example.sogating_app.auth.UserDataModel
 import com.example.sogating_app.utils.FirebaseAuthUtils
@@ -26,6 +26,9 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import kotlinx.android.synthetic.main.activity_my_page.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.io.ByteArrayOutputStream
 
 class MyPageActivity : AppCompatActivity() {
@@ -55,11 +58,15 @@ class MyPageActivity : AppCompatActivity() {
             ActivityResultContracts.GetContent(),
             ActivityResultCallback { uri ->
                 myImage.setImageURI(uri)
+                scanImg()
+
+
             }
         )
         // getAction.launch() 메소드를 통해서 저장된 이미지를 변경.
         myImage.setOnClickListener {
             getAction.launch("image/*")
+
         }
 
         // 변경버튼
@@ -103,6 +110,37 @@ class MyPageActivity : AppCompatActivity() {
             // ...
         }
     }
+
+    //유저의 사진을 받아  flask_얼굴 인신 서버에 전송하여 얼굴 사진의 여부 파악
+    private fun scanImg(){
+        //img를 byteArray로 변환
+        myImage.isDrawingCacheEnabled = true
+        myImage.buildDrawingCache()
+        val bitmap = (myImage.drawable as BitmapDrawable).bitmap
+        val baos = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
+        val data = baos.toByteArray()
+
+
+        //retrofit를 이용하여 flask_server로 byteArray를 전송
+        val api = ImgApi.create();
+        api.getScanResult(data.toString()).enqueue(object : Callback<ResponseData>{
+            override fun onResponse(call: Call<ResponseData>, response: Response<ResponseData>) {
+                Log.d("ResponseData: ",response.body().toString())
+                Toast.makeText(getApplicationContext(), "얼굴인식 완료",Toast.LENGTH_SHORT).show();
+
+            }
+
+            override fun onFailure(call: Call<ResponseData>, t: Throwable) {
+                Log.d("log","fail")
+                Toast.makeText(getApplicationContext(), "얼굴인식 실패 다른 사진을 선택해 주세요",Toast.LENGTH_SHORT).show();
+
+            }
+
+        })
+
+    }
+
 
 
     // Firebase에서 회원의 정보를 가져오기.
