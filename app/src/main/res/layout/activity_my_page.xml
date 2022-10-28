@@ -27,6 +27,13 @@
         android:layout_margin="20dp" />
 
 
+    <Button
+        android:id="@+id/voiceChatBtn"
+        android:layout_width="179dp"
+        android:layout_height="35dp"
+        android:layout_gravity="center"
+        android:text="Voice_chat" />
+
     <TextView
         android:id="@+id/myUID"
         android:layout_width="wrap_content"

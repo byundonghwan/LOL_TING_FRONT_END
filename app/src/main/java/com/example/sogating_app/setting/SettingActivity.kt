@@ -11,6 +11,8 @@ import androidx.core.content.ContextCompat.startActivity
 import com.example.sogating_app.Message.MyLikeListActivity
 import com.example.sogating_app.Message.MyMsgActivity
 import com.example.sogating_app.R
+import com.example.sogating_app.audio.CallActivity
+import com.example.sogating_app.audio.VoiceChatActivity
 import com.example.sogating_app.auth.IntroActivity
 import com.example.sogating_app.databinding.ActivityIntroBinding
 import com.example.sogating_app.databinding.ActivitySettingBinding
@@ -24,6 +26,7 @@ import com.google.firebase.ktx.Firebase
 import com.kakao.sdk.common.util.Utility
 import com.kakao.sdk.user.UserApiClient
 import kotlinx.android.synthetic.main.activity_setting.*
+import kotlinx.android.synthetic.main.fragment_home.*
 
 class SettingActivity : AppCompatActivity() {
 
@@ -94,6 +97,8 @@ class SettingActivity : AppCompatActivity() {
             startActivity(intent2)
 
         }
+
+
 
         findViewById<Button>(R.id.google_logout_Btn).setOnClickListener {
             auth.signOut()

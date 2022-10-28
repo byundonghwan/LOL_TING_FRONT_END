@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "237785040431",
+    "firebase_url": "https://sogating-test-default-rtdb.firebaseio.com",
     "project_id": "sogating-test",
     "storage_bucket": "sogating-test.appspot.com"
   },
@@ -13,6 +14,22 @@
         }
       },
       "oauth_client": [
+        {
+          "client_id": "237785040431-50dmp9d2jn921avl70d6ghvpum03tqc2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.sogating_app",
+            "certificate_hash": "9f89d2b509b96a7232239025ce5daafe38700d9a"
+          }
+        },
+        {
+          "client_id": "237785040431-c2ckhc6je8i9mj61phopq562fnq2ng2j.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.sogating_app",
+            "certificate_hash": "7d4b196f9f94a9ae666901021ef6138104fc012f"
+          }
+        },
         {
           "client_id": "237785040431-4i1t7a0t82e9ob0t70ukri4ae5bmdr5r.apps.googleusercontent.com",
           "client_type": 3

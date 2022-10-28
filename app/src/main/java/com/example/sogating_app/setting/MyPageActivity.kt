@@ -16,6 +16,7 @@ import com.example.sogating_app.MAIN.MainActivity
 import com.example.sogating_app.Message.img.ImgApi
 import com.example.sogating_app.Message.img.ResponseData
 import com.example.sogating_app.R
+import com.example.sogating_app.audio.VoiceChatActivity
 import com.example.sogating_app.auth.UserDataModel
 import com.example.sogating_app.utils.FirebaseAuthUtils
 import com.example.sogating_app.utils.FirebaseRef
@@ -40,6 +41,17 @@ class MyPageActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_my_page)
+
+        //음성 채팅 시작
+        voiceChatBtn.setOnClickListener{
+            val intent = Intent(this, VoiceChatActivity::class.java)
+
+//            자신의 uid,상대방 uid 필요
+//            intent.putExtra("my_uid", my_uid)
+//            intnet.putExtra("another_uid",another_uid)
+            startActivity(intent)
+        }
+
 
         //뒤로가기 버튼 누르면 메인액티비티로 감
         var back_button = findViewById<ImageView>(R.id.back_button_img)
@@ -82,6 +94,9 @@ class MyPageActivity : AppCompatActivity() {
             startActivity(intent)
         }
     }
+
+
+
 
     //유저 데이터 변경
     private fun changeUserData(uid: String) {
