@@ -4,6 +4,7 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
+import android.util.Base64
 import android.util.Log
 import android.widget.ImageView
 import android.widget.TextView
@@ -27,6 +28,7 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import kotlinx.android.synthetic.main.activity_my_page.*
+import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -133,22 +135,30 @@ class MyPageActivity : AppCompatActivity() {
         myImage.buildDrawingCache()
         val bitmap = (myImage.drawable as BitmapDrawable).bitmap
         val baos = ByteArrayOutputStream()
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 40, baos)
         val data = baos.toByteArray()
+        val imageString: String = Base64.encodeToString(data, Base64.DEFAULT)
 
 
         //retrofit를 이용하여 flask_server로 byteArray를 전송
         val api = ImgApi.create();
-        api.getScanResult(data.toString()).enqueue(object : Callback<ResponseData>{
+        val send_json = JSONObject()
+        send_json.put("data",imageString)
+        Log.d(TAG,"OK_IMG")
+        api.getScanResult(send_json).enqueue(object : Callback<ResponseData>{
             override fun onResponse(call: Call<ResponseData>, response: Response<ResponseData>) {
                 Log.d("ResponseData: ",response.body().toString())
-                Toast.makeText(getApplicationContext(), "얼굴인식 완료",Toast.LENGTH_SHORT).show();
+                if (response.body().toString().equals("ResponseData(result=1)")){
+                    Toast.makeText(getApplicationContext(), "얼굴인식 완료",Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(getApplicationContext(), "얼굴인식 실패 다른 사진을 선택해 주세요",Toast.LENGTH_SHORT).show();
+                }
 
             }
 
             override fun onFailure(call: Call<ResponseData>, t: Throwable) {
                 Log.d("log","fail")
-                Toast.makeText(getApplicationContext(), "얼굴인식 실패 다른 사진을 선택해 주세요",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "서버가 불안정 합니다",Toast.LENGTH_SHORT).show();
 
             }
 
