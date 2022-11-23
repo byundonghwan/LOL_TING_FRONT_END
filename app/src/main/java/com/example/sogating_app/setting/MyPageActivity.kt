@@ -278,6 +278,7 @@ class MyPageActivity : AppCompatActivity() {
     private fun getMyData() {
         val myImage = findViewById<ImageView>(R.id.myImage)
         val myUid = findViewById<TextView>(R.id.myUID)
+        val myFace = findViewById<TextView>(R.id.myFace)
         val myNickname = findViewById<TextView>(R.id.myNickname)
         val myAge = findViewById<TextView>(R.id.myAge)
         val myCity = findViewById<TextView>(R.id.myCity)
@@ -296,6 +297,7 @@ class MyPageActivity : AppCompatActivity() {
                 //uid 는 받아와서 저장하지만 레이아웃에선 visiblity 를 gone 하여 감춰둠
                 myUid.text = data!!.uid
 
+                myFace.text = data!!.face
                 myNickname.text = data!!.nickname
                 myAge.text = data!!.age
                 myCity.text = data!!.city
@@ -400,7 +402,8 @@ class MyPageActivity : AppCompatActivity() {
 //        text1.text = "경도 : " + mLastLocation.longitude // 갱신 된 경도
 
         mylocation = LatLng(mLastLocation.latitude, mLastLocation.longitude) // mylocation 변수 저장
-        myCity.text = getAddress(mylocation) //내주소
+        var tmp = getAddress(mylocation).split(" ")
+        myCity.text = tmp[0] + " " + tmp [1] + " " + tmp[2] + " " + tmp[3]//내주소
         FirebaseRef.userInfoRef.child(uid).child("city").setValue(myCity.text)
     }
 

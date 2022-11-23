@@ -16,10 +16,22 @@
             android:layout_height="300dp" />
 
         <TextView
-            android:id="@+id/itemName"
+            android:id="@+id/itemFace"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="13dp"
+            android:layout_marginStart="10dp"
+            android:text="Face"
+            android:fontFamily="@font/jalnan"
+            android:textColor="#050000"
+            android:textSize="30dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/itemName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
             android:layout_marginStart="10dp"
             android:text="Name"
             android:fontFamily="@font/jalnan"
